@@ -1,19 +1,27 @@
 {% macro displaySourceList(source_list) %}
     {% for source in source_list %}
     
-            <li><a href="/news/{{source.id}}">{{source.name}}</a></li>
-            <p><cite class="">{{source.description}}</cite></p>
+    <div class="card w-75">
+        <div class="card-header">
+            <a href="/news/{{source.id}}" class="btn btn-primary">{{source.name}}</a>
+
+        </div>
+        <div class="card-body">
+          <p class="card-text"><cite class="">{{source.description}}</cite></p>
+        </div>
+    </div>
+    
     {% endfor %}
 {% endmacro %}
 
 
 {% macro displayArticleList(article_list) %}
     {% for article in article_list %}
-        <li>title: {{article.title}}</li>
+        <li>Title: {{article.title}}</li>
         <p>desc: {{article.description}}</p>
         <!-- <p>content: {{article.content}}</p> -->
         <p>Published at: {{article.publishedAt}}</p>
-        <img src="{{article.urlToImage}}" alt="" style="width:500px">
+        <img src="{{article.urlToImage}}" alt="" style="width:500px"><br>
         <a href="{{article.url}}" target="_blank"><button class="btn btn-primary"> Read More..</button></a>
         
     {% endfor %}
