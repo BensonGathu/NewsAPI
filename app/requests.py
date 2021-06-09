@@ -1,15 +1,28 @@
-from app import app
+# from app import app
 import urllib.request,json
-from .models import source,article
-Source = source.Source
-Article = article.Article
+from .models import Source,Article
 
-#Getting api key
-api_Key = app.config["NEWS_API_KEY"]
 
-#Getting the news base url
-base_url = app.config["NEWS_API_BASE_URL"]
-base_url2 = app.config["NEWS_API_BASE_URL2"]
+# #Getting api key
+# api_Key = app.config["NEWS_API_KEY"]
+
+# #Getting the news base url
+# base_url = app.config["NEWS_API_BASE_URL"]
+# base_url2 = app.config["NEWS_API_BASE_URL2"]
+
+
+# Getting api key
+api_key = None
+
+#Getting base urls
+base_url = None
+base_url2 = None
+
+def configure_request(app):
+    global api_key , base_url, base_url2
+    api_key = app.config ['NEWS_API_KEY']
+    base_url=app.config ['NEWS_API_BASE_URL']
+    base_url2=app.config ['NEWS_API_BASE_URL2']
 
 def process_sources(sources_list):
     sources_results = []
@@ -26,7 +39,7 @@ def process_sources(sources_list):
 
 def get_sources():
     """Function that gets the json response to our url request"""
-    get_sources_url = base_url2.format(api_Key)
+    get_sources_url = base_url2.format(api_key)
 
     with urllib.request.urlopen(get_sources_url) as url:
         get_sources_data = url.read()
@@ -61,7 +74,7 @@ def process_articles(articles_list):
 
 def get_article(id):
     """Function that returns articles from a source"""
-    get_article_url = base_url.format(id,api_Key)
+    get_article_url = base_url.format(id,api_key)
 
     with urllib.request.urlopen(get_article_url) as url:
         article_details_data =url.read()

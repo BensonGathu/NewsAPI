@@ -1,5 +1,5 @@
 import unittest
-import source
+from app.models import source , Article
 
 Source = source.Source
 
